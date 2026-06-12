@@ -1,0 +1,484 @@
+/* 감성 춘천 여행 가이드 앱 디자인 시스템 */
+
+:root {
+    --sky-color: #A0C4DF;
+    --grass-color: #85B873;
+    --primary-color: #5A9E2F;
+    --primary-hover: #487E25;
+    --secondary-color: #3182CE;
+    --secondary-hover: #2B6CB0;
+    --text-dark: #2D3748;
+    --text-gray: #4A5568;
+    --text-light: #FFFFFF;
+    --accent-gold: #D69E2E;
+    
+    --serif-font: 'Noto Serif KR', serif;
+    --sans-font: 'Noto Sans KR', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    width: 100%;
+    min-height: 100%;
+    background-color: var(--grass-color);
+    font-family: var(--sans-font);
+    color: var(--text-dark);
+}
+
+.app-container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 1. 상단 하늘 영역 70% (유연하게 조정되도록 변경) */
+.sky-area {
+    flex: 1 0 auto;
+    min-height: 70vh;
+    background-color: var(--sky-color);
+    position: relative;
+    padding: 20px 20px 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* 구름 둥실둥실 애니메이션 */
+.cloud {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 100px;
+    z-index: 1;
+}
+.cloud::before, .cloud::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+}
+
+.cloud-1 {
+    width: 120px;
+    height: 40px;
+    top: 5%;
+    left: -150px;
+    animation: moveCloud 35s linear infinite;
+}
+.cloud-1::before { width: 50px; height: 50px; top: -20px; left: 15px; }
+.cloud-1::after { width: 70px; height: 70px; top: -35px; left: 40px; }
+
+.cloud-2 {
+    width: 150px;
+    height: 45px;
+    top: 15%;
+    left: -200px;
+    animation: moveCloud 25s linear infinite 5s;
+    opacity: 0.8;
+}
+.cloud-2::before { width: 60px; height: 60px; top: -25px; left: 20px; }
+.cloud-2::after { width: 80px; height: 80px; top: -40px; left: 50px; }
+
+.cloud-3 {
+    width: 90px;
+    height: 30px;
+    top: 8%;
+    left: -100px;
+    animation: moveCloud 45s linear infinite 12s;
+    opacity: 0.7;
+}
+.cloud-3::before { width: 35px; height: 35px; top: -15px; left: 10px; }
+.cloud-3::after { width: 50px; height: 50px; top: -25px; left: 30px; }
+
+@keyframes moveCloud {
+    0% { left: -200px; }
+    100% { left: 100%; }
+}
+
+/* 제목 헤더 */
+.title-header {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    z-index: 10;
+    text-align: center;
+}
+.title-header h1 {
+    font-family: var(--serif-font);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* 콘텐츠 폼 래퍼 */
+.content-wrapper {
+    width: 100%;
+    max-width: 520px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* 키워드 선택 존 */
+.keyword-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+}
+.keyword-card h2 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-gray);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    justify-items: center;
+}
+
+/* 커스텀 체크박스 스타일 */
+.check-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+.check-item:hover {
+    background: #F7FAFC;
+}
+.check-item input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+.custom-check {
+    width: 18px;
+    height: 18px;
+    background-color: #EDF2F7;
+    border-radius: 4px;
+    position: relative;
+    transition: background-color 0.2s;
+}
+.check-item input:checked ~ .custom-check {
+    background-color: var(--primary-color);
+}
+.custom-check::after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: 3px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+.check-item input:checked ~ .custom-check::after {
+    display: block;
+}
+
+/* 버튼 스타일 */
+.btn-group {
+    display: flex;
+    justify-content: center;
+}
+.btn {
+    font-family: var(--sans-font);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-light);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 30px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.btn-primary {
+    background-color: var(--primary-color);
+}
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+.btn-secondary {
+    background-color: var(--secondary-color);
+}
+.btn-secondary:hover {
+    background-color: var(--secondary-hover);
+    transform: translateY(-1px);
+}
+
+/* 결과 카드 보드 */
+.result-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(203, 213, 224, 0.8);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    animation: slideUp 0.3s ease-out;
+}
+.result-card h3 {
+    font-family: var(--serif-font);
+    font-size: 1.35rem;
+    color: var(--text-dark);
+}
+.res-tag {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--accent-gold);
+}
+.res-desc {
+    font-size: 1rem;
+    color: var(--text-gray);
+    line-height: 1.5;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 2. 하단 땅 영역 30% (모바일 환경에 맞춰 최소 높이 고정) */
+.ground-area {
+    height: 150px;
+    flex: 0 0 auto;
+    background-color: var(--grass-color);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 철도 레일 */
+.railway {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    height: 16px;
+}
+.railway::before {
+    /* 쇠 철길 */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #A4B0BE;
+}
+.sleepers {
+    /* 침목 */
+    width: 100%;
+    height: 12px;
+    position: absolute;
+    top: 4px;
+    background-image: linear-gradient(to right, #8C7AE6 0px, #8C7AE6 4px, transparent 4px, transparent 30px);
+    background-size: 30px 100%;
+}
+
+/* 기차 애니메이션 */
+.train {
+    position: absolute;
+    top: -5px;
+    left: 10%;
+    display: flex;
+    align-items: flex-end;
+    animation: wobble 0.6s infinite alternate ease-in-out;
+}
+
+/* 기차 덜컹덜컹 흔들림 */
+@keyframes wobble {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-3px); }
+}
+
+/* 기관차 헤드 */
+.locomotive {
+    width: 80px;
+    height: 50px;
+    background: #CD5C5C;
+    border-radius: 4px 12px 4px 4px;
+    position: relative;
+    border: 2px solid #8B0000;
+}
+.cabin-window {
+    width: 30px;
+    height: 20px;
+    background: #ADD8E6;
+    border: 2px solid #4682B4;
+    border-radius: 4px;
+    position: absolute;
+    top: 8px;
+    left: 15px;
+}
+.chimney {
+    width: 18px;
+    height: 20px;
+    background: #333333;
+    position: absolute;
+    top: -20px;
+    right: 15px;
+    border-radius: 2px;
+}
+
+/* 기차 스팀 연기 */
+.train-smoke {
+    position: absolute;
+    top: -30px;
+    right: 32px;
+    width: 10px;
+    height: 10px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 50%;
+    animation: puff 1.2s infinite ease-out;
+}
+@keyframes puff {
+    0% { transform: scale(1) translateY(0); opacity: 0.8; }
+    50% { transform: scale(1.6) translateY(-15px) translateX(-5px); opacity: 0.5; }
+    100% { transform: scale(2.2) translateY(-30px) translateX(-10px); opacity: 0; }
+}
+
+/* 연결바 */
+.connector {
+    width: 12px;
+    height: 6px;
+    background: #333333;
+    margin-bottom: 10px;
+}
+
+/* 객차 */
+.coach {
+    width: 90px;
+    height: 45px;
+    background: #F4A460;
+    border-radius: 4px;
+    border: 2px solid #D2691E;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 8px;
+}
+.coach-window {
+    width: 28px;
+    height: 18px;
+    background: #ADD8E6;
+    border: 2px solid #4682B4;
+    border-radius: 4px;
+}
+
+/* 바퀴 회전 애니메이션 */
+.wheels {
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    bottom: -10px;
+    left: 0;
+}
+.wheel {
+    width: 20px;
+    height: 20px;
+    background: #333333;
+    border: 2px solid #FFFFFF;
+    border-radius: 50%;
+    position: absolute;
+    animation: spin 1s infinite linear;
+}
+.wheel::before {
+    /* 바퀴 스포크 축 */
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #FFFFFF;
+    transform: translateY(-50%);
+}
+.wheel-1 { left: 10px; }
+.wheel-2 { left: 50px; }
+.wheel-3 { right: 55px; }
+.wheel-4 { right: 15px; }
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 반응형 모바일 최적화 */
+@media (max-width: 480px) {
+    .sky-area {
+        min-height: calc(100vh - 120px);
+        padding: 15px 12px 30px 12px;
+    }
+    .ground-area {
+        height: 120px;
+    }
+    .railway {
+        top: 30px;
+    }
+    .title-header {
+        margin-bottom: 12px;
+    }
+    .title-header h1 {
+        font-size: 1.55rem;
+    }
+    .checkbox-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px 12px;
+        justify-items: stretch;
+    }
+    .check-item {
+        font-size: 0.95rem;
+        padding: 6px 8px;
+        justify-content: flex-start;
+    }
+    .keyword-card {
+        padding: 15px 12px;
+    }
+    .btn {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+    .result-card {
+        padding: 16px;
+    }
+    .result-card h3 {
+        font-size: 1.2rem;
+    }
+    .res-desc {
+        font-size: 0.95rem;
+    }
+}

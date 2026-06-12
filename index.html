@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>춘천 여행지 추천 프로그램</title>
+    <!-- 구글 폰트 적용 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="app-container">
+        <!-- 상단 하늘 영역 (70%) -->
+        <section class="sky-area">
+            <!-- 둥실둥실 구름 -->
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+            <div class="cloud cloud-3"></div>
+
+            <header class="title-header">
+                <h1>춘천 여행지 추천 프로그램</h1>
+            </header>
+
+            <!-- 스타일 입력/카드 컨테이너 -->
+            <div class="content-wrapper">
+                <!-- 키워드 선택 존 -->
+                <div class="keyword-card">
+                    <h2>🌸 어떤 여행을 떠나고 싶으신가요?</h2>
+                    <div class="checkbox-grid" id="keywordGrid">
+                        <!-- JS에서 동적 체크박스 생성 또는 하드코딩 -->
+                        <label class="check-item">
+                            <input type="checkbox" value="자연" class="keyword-checkbox">
+                            <span class="custom-check"></span> 자연
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" value="힐링" class="keyword-checkbox">
+                            <span class="custom-check"></span> 힐링
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" value="감성 카페" class="keyword-checkbox">
+                            <span class="custom-check"></span> 감성 카페
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" value="맛집" class="keyword-checkbox">
+                            <span class="custom-check"></span> 맛집
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" value="체험" class="keyword-checkbox">
+                            <span class="custom-check"></span> 체험
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" value="관광지" class="keyword-checkbox">
+                            <span class="custom-check"></span> 관광지
+                        </label>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button id="recommendBtn" class="btn btn-primary">춘천 여행지 추천받기 ✨</button>
+                </div>
+
+                <!-- 추천 결과 보드 (기본 숨김) -->
+                <div id="resultCard" class="result-card hidden">
+                    <h3 id="resName">여행지 이름</h3>
+                    <p id="resTag" class="res-tag">태그: 자연, 힐링</p>
+                    <p id="resDesc" class="res-desc">여행지 상세 설명이 표시됩니다.</p>
+                </div>
+
+                <div class="btn-group">
+                    <button id="retryBtn" class="btn btn-secondary hidden">다른 여행지 추천받기 ↻</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 하단 땅 영역 (30%) -->
+        <section class="ground-area">
+            <!-- 철도 레일 -->
+            <div class="railway">
+                <div class="sleepers"></div>
+            </div>
+            
+            <!-- 기차 애니메이션 -->
+            <div class="train">
+                <div class="train-smoke"></div>
+                <div class="locomotive">
+                    <div class="cabin-window"></div>
+                    <div class="chimney"></div>
+                </div>
+                <div class="connector"></div>
+                <div class="coach">
+                    <div class="coach-window window-1"></div>
+                    <div class="coach-window window-2"></div>
+                </div>
+                <div class="wheels">
+                    <div class="wheel wheel-1"></div>
+                    <div class="wheel wheel-2"></div>
+                    <div class="wheel wheel-3"></div>
+                    <div class="wheel wheel-4"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
